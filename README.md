@@ -1,7 +1,7 @@
 # Javalin Microframework demo
 
 This small demo shows off several features of the Javalin framework.
-Details can be found in the blog entry...
+Details can be found in the blog entry https://thecattlecrew.net/2020/07/15/evaluierung-java-microframeworks-javalin/
 
 
 ## Starting the application using docker-compose
