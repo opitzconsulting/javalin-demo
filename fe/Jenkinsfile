@@ -1,0 +1,63 @@
+/* generated jenkins file used for building and deploying mfeval-fe-angular in projects mfeval */
+def final projectId = 'mfeval'
+def final componentId = 'mfeval-fe-angular'
+def final credentialsId = "${projectId}-cd-cd-user-with-password"
+def sharedLibraryRepository
+def dockerRegistry
+node {
+  sharedLibraryRepository = env.SHARED_LIBRARY_REPOSITORY
+  dockerRegistry = env.DOCKER_REGISTRY
+}
+
+library identifier: 'ods-library@production', retriever: modernSCM(
+  [$class: 'GitSCMSource',
+   remote: sharedLibraryRepository,
+   credentialsId: credentialsId])
+
+/*
+  See readme of shared library for usage and customization
+  @ https://github.com/opendevstack/ods-jenkins-shared-library/blob/master/README.md
+  eg. to create and set your own builder slave instead of 
+  the node js slave used here - the code of the slave can be found at
+  https://github.com/opendevstack/ods-project-quickstarters/tree/master/jenkins-slaves/nodejs10-angular
+ */
+odsPipeline(
+  image: "${dockerRegistry}/cd/jenkins-slave-nodejs10-angular",
+  projectId: projectId,
+  componentId: componentId,
+  branchToEnvironmentMapping: [
+    'master': 'test',
+    '*': 'dev'
+  ]
+) { context ->
+  stageBuild(context)
+  stageUnitTest(context)
+  stageLint(context)
+  stageScanForSonarqube(context)
+  stageStartOpenshiftBuild(context)
+  stageDeployToOpenshift(context)
+}
+
+def stageBuild(def context) {
+  stage('Build') {
+    withEnv(["TAGVERSION=${context.tagversion}", "NEXUS_HOST=${context.nexusHost}"]) {
+      sh "yarn --version"
+      sh "yarn install"
+      sh "yarn ng version"
+      sh "yarn build"
+    }
+    sh "cp -r dist/${context.componentId} docker/dist"
+  }
+}
+
+def stageUnitTest(def context) {
+  stage('Unit Test') {
+    sh "yarn test"
+  }
+}
+
+def stageLint(def context) {
+  stage('Lint') {
+    sh "yarn lint"
+  }
+}

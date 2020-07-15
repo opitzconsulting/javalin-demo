@@ -1,0 +1,176 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-12" id="columnForm" >
+    <form *ngIf="technologyForm" [formGroup]="technologyForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            >
+            <div *ngIf="name.invalid && (name.dirty || name.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="name.errors.required">
+                Name ist erforderlich.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="description">Beschreibung *</label>
+            <textarea
+              type="text"
+              id="description"
+              rows="6"
+              class="form-control"
+              formControlName="description"></textarea>
+            <div *ngIf="description.invalid && (description.dirty || description.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="description.errors.required">
+                Beschreibung ist erforderlich.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <h5>Relevanz *</h5>
+            <ngb-rating
+              formControlName="relevance"
+              id="relevance"
+            >
+            </ngb-rating>
+            <div *ngIf="relevance.invalid && (relevance.dirty || relevance.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="relevance.errors.required">
+                Relevanz ist erforderlich.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <h5>Empfehlung *</h5>
+            <ngb-rating
+              formControlName="recommendation"
+              id="recommendation"
+            >
+            </ngb-rating>
+            <div *ngIf="recommendation.invalid && (recommendation.dirty || recommendation.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="recommendation.errors.required">
+                Empfehlung ist erforderlich.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <h5>Komplexität *</h5>
+            <ngb-rating
+              formControlName="complexity"
+              id="complexity"
+            >
+            </ngb-rating>
+            <div *ngIf="complexity.invalid && (complexity.dirty || complexity.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="complexity.errors.required">
+                Komplexität ist erforderlich.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="url">Website Url *</label>
+            <input
+              type="text"
+              id="url"
+              class="form-control"
+              formControlName="url"
+            >
+            <div *ngIf="url.invalid && (url.dirty || url.touched || notEmpty)"
+                 class="alert alert-danger">
+              <div *ngIf="url.errors.required">
+                Url ist erforderlich.
+              </div>
+              <div *ngIf="url.errors.pattern">
+                Url nicht gültig.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="tags" class="labelTag">Tags</label>
+          <ul *ngFor="let tag of technologyForm.get('tags')['controls']; let i = index" class="list-group tagList" formArrayName="tags" id="tags">
+            <div formGroupName="{{ i }}">
+              <div class="col">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="tag"
+                   >
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-danger" (click)="removeTagControl(i)">X</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <div class="input-group">
+            <input type="text"
+                   [maxLength]="20"
+                   class="form-control" #tagName
+                   size="5"
+                   (keyup.enter)="onAddTagControl(tagName.value)">
+            <span class="input-group-append">
+               <button
+                 type="button"
+                 class="btn btn-primary"
+                 (click)="onAddTagControl(tagName.value)">+</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row bottom-buffer">
+        <div class="col text-left">
+          <button
+            type="submit"
+            class="btn btn-primary">Speichern
+          </button>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Abbrechen</button>
+        </div>
+      </div>
+      <hr>
+      <p>Felder mit * sind Pflichteingabefelder.</p>
+    </form>
+  </div>
+</div>
+
+<!-- [disabled]="!technologyForm.valid"-->

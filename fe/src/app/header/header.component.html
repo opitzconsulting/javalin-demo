@@ -1,0 +1,19 @@
+<nav class="navbar navbar-dark bg-dark mb-4 ">
+  <a class="navbar-brand" [routerLink]="['']">Technology Project 1.0</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/technology']" [routerLinkActiveOptions]="{ exact: true }">Technologien</a>
+      <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/technology/neu']">Neue Technologie anlegen</a>
+<!--      <button (click)="testBe()">show Be</button>-->
+    </div>
+  </div>
+  <div>
+    <div *ngIf="router.url == '/technology'"  class="input-group">
+      <input class="form-control py-2 border-right-0" placeholder="Suche Technologie..." (keyup)="updateSearch($event.target.value)" [value]="searchValue" id="searchField">
+      <span class="input-group-append">
+        <div class="input-group-text bg-white"><i class="fa fa-search"></i></div>
+      </span>
+    </div>
+  </div>
+</nav>
+<h3>{{ test }}</h3>

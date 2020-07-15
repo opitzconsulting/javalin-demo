@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+$fa-font-path: "../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome.scss";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+$active-color: #32CD32;
+$hover-color: #00FF00;
+$text-color: #5E5E5E;
+$delete-color: #d9534f;
+$tag-color: #6c757d;
+
+// tag
+ul.tagList{
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+li.tagElement{
+  margin: 5px;
+  padding: 5px;
+  color: white;
+  background-color: #5E5E5E;
+}
+
+i.deleteTag{
+  padding-left: 5px;
+}
+
+i.deleteTag:hover {
+  color: $delete-color;
+}
+
+label.labelTag{
+  display:block;
+}
+
+div.bottom-buffer{
+  margin-bottom: 10px;
+}
+
+button.btn-primary {
+  background-color: $active-color;
+  border: none;
+  color: white;
+}
+
+button.btn-primary:hover
+{
+  background-color: $hover-color;
+  font-weight: bold;
+  //letter-spacing: 1px;
+  //color: black;
+}
+
+button.btn-primary:active:focus, button.btn-primary:focus {
+  //color: $active-color !important;
+  background-color: $hover-color !important;
+  border-color: $active-color !important;
+  outline: none;
+  box-shadow: 0 0 0 3px $active-color !important;
+}
+
+button.btn-primary:disabled {
+  background-color: $hover-color !important;
+  border-color: $active-color !important;
+}
+
+input:focus {
+  border-color: $active-color !important;
+  box-shadow: 0 0 0 1px $active-color !important;
+  //outline: $active-color !important;
+  //outline-width: 1px;
+}
+
+textarea:focus {
+  border-color: $active-color !important;
+  box-shadow: 0 0 0 1px $active-color !important;
+}
+
+ngb-rating:focus {
+  border-color: $active-color !important;
+  box-shadow: 0 0 0 1px $active-color !important;
+}
+
+button.dropdown-item.active {
+  background-color: $active-color  !important;
+}
+
+button.dropdown-item:focus {
+  background-color: $active-color  !important;
+}
+
+button.dropdown-item:hover {
+  background-color: $active-color  !important;
+  color: white  !important;
+}
+
+button.btn-dropdown{
+  background-color: $active-color;
+  border-color: $active-color;
+  color: white  !important;
+}
+
+button.btn-dropdown:focus{
+  box-shadow: 0 0 0 1px $active-color;
+  background-color: $hover-color;
+  color: white  !important;
+}
+
+button.dropdown-item {
+
+}
+//btn-outline-primary
+//*[id^='ngb-typeahead']{
+//  background-color: $active-color !important;
+//}
+
+

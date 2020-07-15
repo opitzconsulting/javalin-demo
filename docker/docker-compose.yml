@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  postgresql:
+    image: "bitnami/postgresql:12.3.0"
+    networks:
+      - javalin-demo
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgresql_data:/bitnami/postgresql"
+      - "./postgresql/initdb.d:/docker-entrypoint-initdb.d:Z"
+    environment:
+      - POSTGRESQL_POSTGRES_PASSWORD=changeme
+      - PGPASSWORD=kineKine41!
+      - POSTGRESQL_PASSWORD=kineKine41!
+      - POSTGRESQL_MULTIPLE_DATABASES=
+
+  backend:
+    build: ../be
+    image: mfeval-be
+    environment:
+      DB_URL: postgresql
+      DB_PORT: "5432"
+    ports:
+      - 7000:7000
+    networks:
+      - javalin-demo
+    depends_on:
+      - postgresql
+
+  frontend:
+    build: ../fe
+    image: mfeval-fe
+    ports:
+      - 7080:8080
+    networks:
+      - javalin-demo
+    depends_on:
+      - backend
+
+volumes:
+  postgresql_data:
+
+networks:
+  javalin-demo:

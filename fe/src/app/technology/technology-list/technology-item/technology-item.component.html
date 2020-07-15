@@ -1,0 +1,33 @@
+<li class="list-group-item list-group-item-action clearfix shadow p-3 rounded" [routerLink]="[technologyId]">
+  <div class="row">
+    <div class="col align-content-center">
+      <h4 class="list-group-item-heading">{{ technology.name }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="list-group-item-text">{{ technology.description | truncate:50 }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="relevance">Relevanz: </label>
+      <br>
+      <ngb-rating  readonly='true' [rate]="technology.relevance" id="relevance"></ngb-rating>
+    </div>
+    <div class="col">
+      <label for="recommendation">Empfehlung: </label>
+      <br>
+      <ngb-rating  readonly='true' [rate]="technology.recommendation" id="recommendation"></ngb-rating>
+    </div>
+    <div class="col">
+      <label for="complexity">Komplexität</label>
+      <br>
+      <ngb-rating  readonly='true' [rate]="technology.complexity" id="complexity"></ngb-rating>
+    </div>
+  </div>
+
+</li>
+
+<!--<a class="list-group-item clearfix" [routerLink]="[technologyId]">-->
